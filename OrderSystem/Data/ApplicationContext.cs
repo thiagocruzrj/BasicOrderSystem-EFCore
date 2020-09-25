@@ -26,6 +26,17 @@ namespace OrderSystem.Data
 
                 p.HasIndex(i => i.Telefone).HasName("idx_cliente_telefone");
             });
+
+            modelBuilder.Entity<Produto>(p => 
+            {
+                p.ToTable("Produtos");
+                p.HasKey(p => p.Id);
+                p.Property(p => p.CodigoBarras).HasColumnType("VARCHAR(14)").IsRequired();
+                p.Property(p => p.Descricao).HasColumnType("VARCHAR(60)");
+                p.Property(p => p.Valor).IsRequired();
+                p.Property(p => p.TipoProduto).HasConversion<string>();
+            });
+            
         }
     }
 }
