@@ -51,6 +51,14 @@ namespace OrderSystem.Data
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
+            modelBuilder.Entity<PedidoItem>(p => 
+            {
+                p.ToTable("PedidoItens");
+                p.HasKey(p => p.Id);
+                p.Property(p => p.Quantidade).HasDefaultValue(1).IsRequired();
+                p.Property(p => p.Valor).IsRequired();
+                p.Property(p => p.Desconto).IsRequired();
+            });
         }
     }
 }
