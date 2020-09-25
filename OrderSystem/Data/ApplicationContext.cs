@@ -36,7 +36,21 @@ namespace OrderSystem.Data
                 p.Property(p => p.Valor).IsRequired();
                 p.Property(p => p.TipoProduto).HasConversion<string>();
             });
-            
+
+            modelBuilder.Entity<Pedido>(p => 
+            {
+                p.ToTable("Pedidos");
+                p.HasKey(p => p.Id);
+                p.Property(p => p.IniciadoEm).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
+                p.Property(p => p.StatusPedido).HasConversion<string>();
+                p.Property(p => p.TipoFrete).HasConversion<int>();
+                p.Property(p => p.Observacao).HasColumnType("VARCHAR(512)");
+
+                p.HasMany(p => p.Itens)
+                    .WithOne(p => p.Pedido)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
         }
     }
 }
