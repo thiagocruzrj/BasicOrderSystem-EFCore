@@ -1,4 +1,5 @@
 using System;
+using Microsoft.EntityFrameworkCore;
 using OrderSystem.Data;
 using OrderSystem.Domain;
 using OrderSystem.ValueObjects;
@@ -17,7 +18,8 @@ namespace OrderSystem
 
             // }
 
-            Console.WriteLine("Hello World!");
+            //Console.WriteLine("Hello World!");
+            InserirDados();
         }
 
         private static void InserirDados()
@@ -32,7 +34,13 @@ namespace OrderSystem
             };
 
             using var db = new ApplicationContext();
-            db.Produtos.Add(produto);
+           // db.Produtos.Add(produto);
+           // db.Set<Produto>().Add(produto);
+           // db.Entry(produto).State = EntityState.Added;
+           db.Add(produto);
+
+           var registros = db.SaveChanges();
+           Console.WriteLine($"Total de registro(s): {registros}");
         }
     }
 }
