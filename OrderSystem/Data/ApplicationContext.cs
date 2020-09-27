@@ -22,7 +22,7 @@ namespace OrderSystem.Data
                 .UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=CursoEFCore;Integrated Security=true", p => 
                                 p.EnableRetryOnFailure(maxRetryCount: 2,
                                                        maxRetryDelay: TimeSpan.FromSeconds(5),
-                                                       errorNumbersToAdd: null)); //Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;
+                                                       errorNumbersToAdd: null).MigrationsHistoryTable("CursoEfCore")); //Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
