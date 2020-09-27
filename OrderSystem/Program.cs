@@ -25,6 +25,20 @@ namespace OrderSystem
             ConsultarDados();
         }
 
+        private static void ConsultarDados()
+        {
+            using var db = new ApplicationContext();
+            //var consultaPorSintaxe = (from c in db.Clientes where c.Id > 0 select c).ToList();
+            var consultarPorMetodo = db.Clientes.AsNoTracking().Where(p => p.Id > 0).OrderBy(p => p.Id).ToList();
+
+            foreach (var cliente in consultarPorMetodo)
+            {
+                Console.WriteLine($"Consultando o cliente : {cliente.Id}");
+                // db.Clientes.Find(cliente.Id);
+                db.Clientes.FirstOrDefault(p => p.Id == cliente.Id);
+            }
+        }
+
         private static void InserirDados()
         {
             var produto = new Produto
@@ -93,17 +107,5 @@ namespace OrderSystem
             Console.WriteLine($"Total de registro(s): {registros}");
         }
 
-        private static void ConsultarDados()
-        {
-            using var db = new ApplicationContext();
-            //var consultaPorSintaxe = (from c in db.Clientes where c.Id > 0 select c).ToList();
-            var consultarPorMetodo = db.Clientes.AsNoTracking().Where(p => p.Id > 0).ToList();
-
-            foreach (var cliente in consultarPorMetodo)
-            {
-                Console.WriteLine($"Consultando o cliente : {cliente.Id}");
-                db.Clientes.Find(cliente.Id);
-            }
-        }
     }
 }
