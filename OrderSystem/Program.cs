@@ -46,7 +46,6 @@ namespace OrderSystem
 
         private static void InserirDadosEmMassa()
         {
-
             var produto = new Produto
             {
                 Descricao = "Produto teste",
@@ -65,9 +64,29 @@ namespace OrderSystem
                 Telefone = "21972914185"
             };
 
-            using var db = new ApplicationContext();
-            db.AddRange(produto, cliente);
+            var listaClientes = new[]
+            {
+                new Cliente
+                {
+                    Nome = "Thiago",
+                    CEP = "20921333",
+                    Cidade = "Logo",
+                    Estado = "Lo",
+                    Telefone = "21972914185"
+                },
+                new Cliente
+                {
+                    Nome = "Thiago2",
+                    CEP = "20921233",
+                    Cidade = "Logoo",
+                    Estado = "Lq",
+                    Telefone = "31972914185"
+                }
+            };
 
+            using var db = new ApplicationContext();
+            // db.AddRange(produto, cliente);
+            db.Clientes.AddRange(listaClientes);
             var registros = db.SaveChanges();
             Console.WriteLine($"Total de registro(s): {registros}");
         }
