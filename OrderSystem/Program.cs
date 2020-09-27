@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using OrderSystem.Data;
@@ -22,7 +23,7 @@ namespace OrderSystem
             //Console.WriteLine("Hello World!");
             //InserirDados();
             //InserirDadosEmMassa();
-            ConsultarDados();
+            //ConsultarDados();
         }
 
         private static void ConsultarDados()
@@ -107,5 +108,32 @@ namespace OrderSystem
             Console.WriteLine($"Total de registro(s): {registros}");
         }
 
+        private static void CadastrarPedido()
+        {
+            using var _context = new ApplicationContext();
+
+            var cliente = _context.Clientes.FirstOrDefault();
+            var produto = _context.Produtos.FirstOrDefault();
+
+            var pedido = new Pedido
+            {
+                ClienteId = cliente.Id,
+                IniciadoEm = DateTime.Now,
+                FinalizadoEm = DateTime.Now,
+                Observacao = "Teste",
+                StatusPedido = StatusPedido.Analise,
+                TipoFrete = TipoFrete.SemFrete,
+                Itens = new List<PedidoItem>()
+                {
+                    new PedidoItem
+                    {
+                        ProdutoId= produto.Id,
+                        Desconto = 0,
+                        Quantidade = 1,
+                        Valor = produto.Valor
+                    },
+                }
+            };
+        }
     }
 }
