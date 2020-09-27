@@ -24,7 +24,8 @@ namespace OrderSystem
             //InserirDados();
             //InserirDadosEmMassa();
             //ConsultarDados();
-            CadastrarPedido();
+            //CadastrarPedido();
+            ConsultarPedidoCarregamentoAdiantado();
         }
 
         private static void ConsultarDados()
@@ -143,7 +144,10 @@ namespace OrderSystem
         private static void ConsultarPedidoCarregamentoAdiantado()
         {
             using var db = new ApplicationContext();
-            var pedidos = db.Produtos.ToList();
+            var pedidos = db.Pedidos
+                            .Include(p => p.Itens)
+                            .ThenInclude(p => p.Produto)
+                            .ToList();
 
             Console.WriteLine(pedidos.Count);
         }
