@@ -26,7 +26,7 @@ namespace OrderSystem
             //ConsultarDados();
             //CadastrarPedido();
             //ConsultarPedidoCarregamentoAdiantado();
-            AtualizarDados()
+            AtualizarDados();
         }
 
         private static void ConsultarDados()
@@ -157,9 +157,18 @@ namespace OrderSystem
         {
             using var db = new ApplicationContext();
             var cliente = db.Clientes.Find(3);
-            cliente.Nome = "Cliente alterado";
+            cliente.Nome = "Cliente alterado V2";
 
-            db.Clientes.Update(cliente);
+            var clienteDesconectado = new 
+            {
+                Nome = "Cliente Desconectado",
+                Telefone = "98979304158"
+            };
+
+            db.Entry(cliente).CurrentValues.SetValues(clienteDesconectado);
+            // db.Entry(cliente).State = EntityState.Modified;
+            // PARA FAZER A ATUALIZAÇÃO SOMENTE DOS DADOS NECESSÁRIOS DEVEMOS COMENTAR O METODO UPDATE, POIS ELE ATUALIZA TODA A TABELA
+            // db.Clientes.Update(cliente);
             db.SaveChanges();
         }
     }
