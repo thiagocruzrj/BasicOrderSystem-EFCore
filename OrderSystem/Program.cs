@@ -156,15 +156,20 @@ namespace OrderSystem
         private static void AtualizarDados()
         {
             using var db = new ApplicationContext();
-            var cliente = db.Clientes.Find(3);
-            cliente.Nome = "Cliente alterado V2";
+            // var cliente = db.Clientes.Find(3);
+
+            var cliente = new Cliente
+            {
+                Id = 1
+            };
 
             var clienteDesconectado = new 
             {
-                Nome = "Cliente Desconectado",
+                Nome = "Cliente Desconectado passo 3",
                 Telefone = "98979304158"
             };
 
+            db.Attach(cliente);
             db.Entry(cliente).CurrentValues.SetValues(clienteDesconectado);
             // db.Entry(cliente).State = EntityState.Modified;
             // PARA FAZER A ATUALIZAÇÃO SOMENTE DOS DADOS NECESSÁRIOS DEVEMOS COMENTAR O METODO UPDATE, POIS ELE ATUALIZA TODA A TABELA
