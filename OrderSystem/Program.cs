@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using OrderSystem.Data;
 using OrderSystem.Domain;
@@ -20,7 +21,8 @@ namespace OrderSystem
 
             //Console.WriteLine("Hello World!");
             //InserirDados();
-            InserirDadosEmMassa();
+            //InserirDadosEmMassa();
+            ConsultarDados();
         }
 
         private static void InserirDados()
@@ -89,6 +91,13 @@ namespace OrderSystem
             db.Clientes.AddRange(listaClientes);
             var registros = db.SaveChanges();
             Console.WriteLine($"Total de registro(s): {registros}");
+        }
+
+        private static void ConsultarDados()
+        {
+            using var db = new ApplicationContext();
+            var consultaPorSintaxe = (from c in db.Clientes where c.Id > 0 select c).ToList();
+            var consultarPorMetodo = db.Clientes.Where(p => p.Id > 0).ToList();
         }
     }
 }
