@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace OrderSystem
 {
@@ -6,6 +8,14 @@ namespace OrderSystem
     {
         static void Main(string[] args)
         {
+            // using var db = new Data.ApplicationContext();
+
+            // var existMigration = db.Database.GetPendingMigrations().Any();
+            // if(existMigration)
+            // {
+
+            // }
+
             Console.WriteLine("Hello World!");
         }
     }
