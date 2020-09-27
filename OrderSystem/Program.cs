@@ -1,6 +1,7 @@
 using System;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+using OrderSystem.Data;
+using OrderSystem.Domain;
+using OrderSystem.ValueObjects;
 
 namespace OrderSystem
 {
@@ -17,6 +18,21 @@ namespace OrderSystem
             // }
 
             Console.WriteLine("Hello World!");
+        }
+
+        private static void InserirDados()
+        {
+            var produto = new Produto
+            {
+                Descricao = "Produto teste",
+                CodigoBarras = "1234567891231",
+                Valor = 10m,
+                TipoProduto = TipoProduto.Revenda,
+                Ativo = true
+            };
+
+            using var db = new ApplicationContext();
+            db.Produtos.Add(produto);
         }
     }
 }
