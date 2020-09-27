@@ -10,7 +10,7 @@ namespace OrderSystem.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\msqllocaldb;Initial Catalog=CursoEFCore;Integrated Security=true");
+            optionsBuilder.UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=CursoEFCore;Integrated Security=true"); //Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
