@@ -139,5 +139,13 @@ namespace OrderSystem
             db.Pedidos.Add(pedido);
             db.SaveChanges();
         }
+    
+        private static void ConsultarPedidoCarregamentoAdiantado()
+        {
+            using var db = new ApplicationContext();
+            var pedidos = db.Produtos.ToList();
+
+            Console.WriteLine(pedidos.Count);
+        }
     }
 }
