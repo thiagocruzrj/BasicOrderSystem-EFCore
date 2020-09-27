@@ -181,11 +181,15 @@ namespace OrderSystem
         private static void RemoverDados()
         {
             using var db = new ApplicationContext();
-            var cliente = db.Clientes.Find(3);
-
+            //var cliente = db.Clientes.Find(3);
+            var cliente = new Cliente
+            {
+                Id = 4
+            };
+            
             db.Clientes.Remove(cliente);
-            db.Remove(cliente);
-            db.Entry(cliente).State = EntityState.Deleted;
+            // db.Remove(cliente);
+            // db.Entry(cliente).State = EntityState.Deleted;
 
             db.SaveChanges();
         }
