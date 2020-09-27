@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OrderSystem.Data.Configuration;
@@ -23,6 +24,24 @@ namespace OrderSystem.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
+            MapeandoEntidadesEsquecidas(modelBuilder);
+        }
+
+        private void MapeandoEntidadesEsquecidas(ModelBuilder model)
+        {
+            foreach(var entity in model.Model.GetEntityTypes())
+            {
+                var properties = entity.GetProperties().Where(p => p.ClrType == typeof(string));
+
+                foreach (var property in properties)
+                {
+                    if(string.IsNullOrEmpty(property.GetColumnType()) && !property.GetMaxLength().HasValue)
+                    {
+                        //property.SetMaxLength(100);
+                        property.SetColumnType("VARCHAR(80)");
+                    }
+                }
+            }
         }
     }
 }
