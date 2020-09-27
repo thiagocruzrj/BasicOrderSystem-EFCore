@@ -25,7 +25,8 @@ namespace OrderSystem
             //InserirDadosEmMassa();
             //ConsultarDados();
             //CadastrarPedido();
-            ConsultarPedidoCarregamentoAdiantado();
+            //ConsultarPedidoCarregamentoAdiantado();
+            AtualizarDados()
         }
 
         private static void ConsultarDados()
@@ -150,6 +151,16 @@ namespace OrderSystem
                             .ToList();
 
             Console.WriteLine(pedidos.Count);
+        }
+    
+        private static void AtualizarDados()
+        {
+            using var db = new ApplicationContext();
+            var cliente = db.Clientes.Find(3);
+            cliente.Nome = "Cliente alterado";
+
+            db.Clientes.Update(cliente);
+            db.SaveChanges();
         }
     }
 }
