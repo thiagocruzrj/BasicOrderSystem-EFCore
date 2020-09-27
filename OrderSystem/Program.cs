@@ -24,6 +24,7 @@ namespace OrderSystem
             //InserirDados();
             //InserirDadosEmMassa();
             //ConsultarDados();
+            CadastrarPedido();
         }
 
         private static void ConsultarDados()
@@ -110,10 +111,10 @@ namespace OrderSystem
 
         private static void CadastrarPedido()
         {
-            using var _context = new ApplicationContext();
+            using var db = new ApplicationContext();
 
-            var cliente = _context.Clientes.FirstOrDefault();
-            var produto = _context.Produtos.FirstOrDefault();
+            var cliente = db.Clientes.FirstOrDefault();
+            var produto = db.Produtos.FirstOrDefault();
 
             var pedido = new Pedido
             {
@@ -134,6 +135,9 @@ namespace OrderSystem
                     },
                 }
             };
+
+            db.Pedidos.Add(pedido);
+            db.SaveChanges();
         }
     }
 }
